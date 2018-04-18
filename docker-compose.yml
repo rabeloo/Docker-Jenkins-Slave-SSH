@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  jenkins:
+   image: jenkins_slave:1.0.0
+   privileged: true
+   ports:
+    - "2210:22"
+   volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /usr/bin/docker:/usr/bin/docker
+   hostname: jenkins_slave
+   container_name: jenkins_slave
+   restart: always
+   environment:
+    JAVA_OPTS: "-Djava.awt.headless=true"
+    JAVA_OPTS: "-Duser.timezone='America/Sao_Paulo'"
+   logging:
+    driver: "json-file"
+    options:
+     max-size: "250m"
+     max-file: "3"
